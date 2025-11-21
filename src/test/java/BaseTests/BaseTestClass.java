@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTestClass {
     protected WebDriver driver;
     protected HomePage homepage;
+    //
 
     @BeforeClass
     public void setUp(){
