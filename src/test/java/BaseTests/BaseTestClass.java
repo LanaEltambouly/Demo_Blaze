@@ -1,6 +1,7 @@
 package BaseTests;
 
 import Pages.HomePage;
+import Pages.SignUpPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
@@ -10,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTestClass {
     protected WebDriver driver;
     protected HomePage homepage;
-    //
+    protected SignUpPage signuppage;
 
     @BeforeClass
     public void setUp(){
