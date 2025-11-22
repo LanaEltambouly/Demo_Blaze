@@ -2,6 +2,9 @@ package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class HomePage {
     WebDriver driver;
@@ -19,6 +22,8 @@ public class HomePage {
     By NextButtonLocator = By.xpath("//button[text()='Next']");
     By PreviousButtonLocator = By.xpath("//button[text()='Previous']");
     By WelcomeLocator = By.id("nameofuser");
+    By ProductsLocator = By.className("col-lg-4 col-md-6 mb-4");
+
 
     public HomePage(WebDriver driver){
         this.driver = driver;
@@ -56,17 +61,25 @@ public class HomePage {
     public void ClickOnMonitorsCat(){
         driver.findElement(MonitorsCategoryLocator).click();
     }
-    public void ClickOnNextButton(){
+    public NextPage ClickOnNextButton(){
         driver.findElement(NextButtonLocator).click();
+        return new NextPage(driver);
     }
-    public void ClickOnPreviousButton(){
+    public PreviousPage ClickOnPreviousButton(){
         driver.findElement(PreviousButtonLocator).click();
+        return new PreviousPage(driver);
     }
     public String getWelcomeStatement(){
         return driver.findElement(WelcomeLocator).getText();
     }
     public void ClickOnLogout(){
         driver.findElement(LogOutLocator).click();
+    }
+
+    public ProductPage clickOnProduct(int i){
+        List<WebElement> Products = driver.findElements(ProductsLocator);
+        Products.get(i).click();
+        return new ProductPage(driver);
     }
 
 

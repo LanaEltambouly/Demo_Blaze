@@ -9,6 +9,10 @@ public class ProductPage {
     By ProductNameLocator = By.className("name");
     By ProductPriceLocator = By.className("price-container");
     By ProductDescriptionLocator = By.id("more-information");
+    By okButtonLocator = By.xpath("//button[text()='OK']");
+    String AddToCartExpectedMess = "Product added.";
+    //By AddToCartActualMessLocator = By.
+
     public ProductPage(WebDriver driver){
         this.driver = driver;
     }
@@ -24,5 +28,14 @@ public class ProductPage {
     public String getProductPrice(){
         return driver.findElement(ProductPriceLocator).getText();
     }
+    public String getAddToCartExpectedMess(){
+        return AddToCartExpectedMess;
+    }
+//    public String getAddToCartActualMess(){
+//        return driver.findElement(AddToCartActualMessLocator).getText();
+//    }
+      public void clickOK() {
+        driver.findElement(okButtonLocator).click();
+     }
 
 }
