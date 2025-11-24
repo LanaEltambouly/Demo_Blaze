@@ -1,55 +1,62 @@
 package Pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
     WebDriver driver;
+    WebDriverWait wait;
     By UsernameLocator = By.id("loginusername");
     By PasswordLocator = By.id("loginpassword");
     By LogInButtonLocator = By.xpath("//button[@onclick='logIn()']");
-    By CloseButtonLocator = By.cssSelector("div[class='modal-footer'] > button");
-    String exepectedAnyEmptyFieldMess = "Please fill out Username and Password.";
-    String exepectedWrongUsernameMess = "User does not exist.";
-    String exepectedWrongPasswordMess = "Wrong password.";
-    String exepectedWrongCredentialsMess = "User does not exist.";
-    //By ActualMessLocator = By.
-    By okButtonLocator = By.xpath("//button[text()='OK']");
+    By CloseButtonLocator = By.xpath("//button[contains(text(), 'Close')])[3]");
+    String expectedAnyEmptyFieldMess = "Please fill out Username and Password.";
+    String expectedWrongUsernameMess = "User does not exist.";
+    String expectedWrongPasswordMess = "Wrong password.";
+    String expectedWrongCredentialsMess = "User does not exist.";
 
     public LoginPage(WebDriver driver){
         this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void setUsername(String username) {
-        driver.findElement(UsernameLocator).sendKeys(username);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(UsernameLocator))).sendKeys(username);
     }
     public void setPassword(String password){
-        driver.findElement(PasswordLocator).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(PasswordLocator))).sendKeys(password);
     }
-    public HomePage clickOnLogIn(){
-        driver.findElement(LogInButtonLocator).click();
-        return new HomePage(driver);
+    public void clickOnLogIn(){
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(LogInButtonLocator))).click();
     }
-    public HomePage clickOnClose(){
-        driver.findElement(CloseButtonLocator).click();
-        return new HomePage(driver);
+    public void clickOnClose(){
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(CloseButtonLocator))).click();
     }
-    public String getExepectedWrongCredentialsMess(){
-        return exepectedWrongCredentialsMess;
+    public String getExpectedWrongCredentialsMess(){
+        return expectedWrongCredentialsMess;
     }
-    public String getExepectedWrongUsernameMess(){
-        return exepectedWrongUsernameMess;
+    public String getExpectedWrongUsernameMess(){
+        return expectedWrongUsernameMess;
     }
-    public String getExepectedWrongPasswordMess(){
-        return exepectedWrongPasswordMess;
+    public String getExpectedWrongPasswordMess(){
+        return expectedWrongPasswordMess;
     }
-    public String getExepectedAnyEmptyFieldMess(){
-        return exepectedAnyEmptyFieldMess;
+    public String getExpectedAnyEmptyFieldMess(){
+        return expectedAnyEmptyFieldMess;
     }
-//    public String getActualMess(){
-//        return driver.findElement(ActualMessLocator).getText();
-//    }
-    public void clickOK() {
-        driver.findElement(okButtonLocator).click();
+    public void clickOnOk(){
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+    public String getActualMess(){
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = driver.switchTo().alert();
+        return alert.getText();
     }
 }
